@@ -48,6 +48,6 @@ stanford_tag = lambda text, tagger: tagger.tag(text.split())
 if __name__ == '__main__':
     import sample_data
     docs = sample_data.n_samples(50)
-    tagme_tag(docs[0]['content'])
+    #tagme_tag(docs[0]['content'])
     wikifier_tag(docs[0]['content'])
     stanford_tag(docs[0]['content'], stanford_tagger())
