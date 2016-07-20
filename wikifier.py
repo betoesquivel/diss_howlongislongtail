@@ -11,5 +11,6 @@ json_docs = [json.dumps(wikifier_tag(doc['content'])) for doc in docs]
 for doc in json_docs:
     print doc
 
+#wikifier_tags = wikifier_tag(docs[0]['content'])
 #pp = pprint.PrettyPrinter()
 #pp.pprint(wikifier_tags)

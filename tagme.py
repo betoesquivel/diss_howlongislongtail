@@ -11,5 +11,6 @@ json_docs = [json.dumps(tagme_tag(doc['content'])) for doc in docs]
 for doc in json_docs:
     print doc
 
+#tagme_tags = tagme_tag(docs[0]['content'])
 #pp = pprint.PrettyPrinter()
 #pp.pprint(tagme_tags)
