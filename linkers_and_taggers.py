@@ -49,10 +49,11 @@ if __name__ == '__main__':
     import sample_data
     import pprint
     docs = sample_data.n_samples(50)
-    #tagme_tag(docs[0]['content'])
+    tagme_tags = tagme_tag(docs[0]['content'])
     wikifier_tags = wikifier_tag(docs[0]['content'])
     stanford_tags = stanford_tag(docs[0]['content'], stanford_tagger())
     pp = pprint.PrettyPrinter()
     pp.pprint(wikifier_tags)
     pp.pprint(stanford_tags)
+    pp.pprint(tagme_tags)
 
