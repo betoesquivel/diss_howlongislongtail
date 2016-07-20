@@ -8,7 +8,7 @@ from nltk.tag import StanfordNERTagger
 # Environment information and setup
 TAGME_KEY = os.environ['TAGME_KEY']
 WIKIFIER_KEY = os.environ['WIKIFIER_KEY']
-STANFORD_JARS = os.environ.get('STANFORD_JARS')
+STANFORD_JARS = os.environ['STANFORD_JARS']
 os.environ['CLASSPATH'] = STANFORD_JARS
 
 # ENDPOINTS
@@ -47,7 +47,12 @@ stanford_tag = lambda text, tagger: tagger.tag(text.split())
 
 if __name__ == '__main__':
     import sample_data
+    import pprint
     docs = sample_data.n_samples(50)
     #tagme_tag(docs[0]['content'])
-    wikifier_tag(docs[0]['content'])
-    stanford_tag(docs[0]['content'], stanford_tagger())
+    wikifier_tags = wikifier_tag(docs[0]['content'])
+    stanford_tags = stanford_tag(docs[0]['content'], stanford_tagger())
+    pp = pprint.PrettyPrinter()
+    pp.pprint(wikifier_tags)
+    pp.pprint(stanford_tags)
+
