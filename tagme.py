@@ -2,9 +2,14 @@
 from linkers_and_taggers import tagme_tag
 import sample_data
 import pprint
+import sys
+import json
 
-docs = sample_data.n_samples(50)
-tagme_tags = tagme_tag(docs[0]['content'])
+docs = sample_data.n_samples(int(sys.argv[1]) if len(sys.argv) > 1 else None)
+json_docs = [json.dumps(tagme_tag(doc['content'])) for doc in docs]
 
-pp = pprint.PrettyPrinter()
-pp.pprint(tagme_tags)
+for doc in json_docs:
+    print doc
+
+#pp = pprint.PrettyPrinter()
+#pp.pprint(tagme_tags)
