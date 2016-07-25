@@ -15,6 +15,12 @@ os.environ['CLASSPATH'] = STANFORD_JARS
 WIKIFIER_URL  = "http://www.wikifier.org/annotate-article"
 TAGME_URL = "https://tagme.d4science.org/tagme/tag"
 
+def json_foolproof_loads(text):
+    try:
+        return json.loads(text)
+    except:
+        return {}
+
 # TAGME
 # Usage: tagme_tag(text)
 tagme_payload = lambda text: {
@@ -23,7 +29,7 @@ tagme_payload = lambda text: {
     'gcube-token': TAGME_KEY
 }
 tagme_call = lambda text: requests.get(TAGME_URL, params=tagme_payload(text))
-tagme_tag = lambda text: json.loads(tagme_call(text).text).get('annotations', [])
+tagme_tag = lambda text: json_foolproof_loads(tagme_call(text).text).get('annotations', [])
 
 # WIKIFIER
 # Usage: wikifier_tag(text)
@@ -33,7 +39,7 @@ wikifier_payload = lambda text: {
     'userKey': WIKIFIER_KEY
 }
 wikifier_call = lambda text: requests.get(WIKIFIER_URL, params=wikifier_payload(text))
-wikifier_tag = lambda text: json.loads(wikifier_call(text).text).get('annotations', [])
+wikifier_tag = lambda text: json_foolproof_loads(wikifier_call(text).text).get('annotations', [])
 
 # STANFORD NER
 # Usage:
@@ -49,9 +55,9 @@ if __name__ == '__main__':
     import sample_data
     import pprint
     docs = sample_data.n_samples(50)
-    tagme_tags = tagme_tag(docs[0]['content'])
-    wikifier_tags = wikifier_tag(docs[0]['content'])
-    stanford_tags = stanford_tag(docs[0]['content'], stanford_tagger())
+    tagme_tags = tagme_tag(docs[2]['content'])
+    wikifier_tags = wikifier_tag(docs[2]['content'])
+    stanford_tags = stanford_tag(docs[2]['content'], stanford_tagger())
     pp = pprint.PrettyPrinter()
     pp.pprint(wikifier_tags)
     pp.pprint(stanford_tags)
