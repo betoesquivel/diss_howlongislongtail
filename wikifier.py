@@ -6,7 +6,7 @@ import sys
 import json
 
 docs = sample_data.n_samples(int(sys.argv[1]) if len(sys.argv) > 1 else None)
-json_docs = [json.dumps(wikifier_tag(doc['content'])) for doc in docs]
+json_docs = [json.dumps(wikifier_tag(doc['content'][:5000])) for doc in docs]
 
 for doc in json_docs:
     print doc
