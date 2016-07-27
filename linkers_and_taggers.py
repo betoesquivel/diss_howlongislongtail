@@ -29,7 +29,7 @@ tagme_payload = lambda text: {
     'gcube-token': TAGME_KEY
 }
 tagme_call = lambda text: requests.get(TAGME_URL.strip(), params=tagme_payload(text))
-tagme_tag = lambda text: json_foolproof_loads(tagme_call(text.strip()).text).get('annotations', [])
+tagme_tag = lambda text: json_foolproof_loads(tagme_call(text.strip()).text)
 
 # WIKIFIER
 # Usage: wikifier_tag(text)
@@ -39,7 +39,7 @@ wikifier_payload = lambda text: {
     'userKey': WIKIFIER_KEY
 }
 wikifier_call = lambda text: requests.get(WIKIFIER_URL, params=wikifier_payload(text))
-wikifier_tag = lambda text: json_foolproof_loads(wikifier_call(text).text).get('annotations', [])
+wikifier_tag = lambda text: json_foolproof_loads(wikifier_call(text).text)
 
 # STANFORD NER
 # Usage:
