@@ -26,6 +26,9 @@ def json_foolproof_loads(text):
 tagme_payload = lambda text: {
     'text': text,
     'lang': 'en',
+    'include_categories': 'true',
+    'long_text': 500,
+    'epsilon': 0.1,
     'gcube-token': TAGME_KEY
 }
 tagme_call = lambda text: requests.get(TAGME_URL.strip(), params=tagme_payload(text))
