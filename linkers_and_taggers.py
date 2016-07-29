@@ -28,7 +28,7 @@ tagme_payload = lambda text: {
     'lang': 'en',
     'include_categories': 'true',
     'include_all_spots': 'true',
-    'long_text': 500,
+    'long_text': 0,
     'epsilon': 0.1,
     'gcube-token': TAGME_KEY
 }
