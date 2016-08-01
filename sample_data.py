@@ -1,4 +1,4 @@
-#!/usr/bin/enb python
+#!/usr/bin/env python
 import json
 import itertools
 

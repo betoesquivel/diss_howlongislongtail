@@ -24,7 +24,7 @@ def json_foolproof_loads(text):
 # TAGME
 # Usage: tagme_tag(text)
 tagme_payload = lambda text: {
-    'text': text,
+    'text': text.encode('utf-8'),
     'lang': 'en',
     'include_categories': 'true',
     'include_all_spots': 'true',
@@ -38,7 +38,7 @@ tagme_tag = lambda text: json_foolproof_loads(tagme_call(text.strip()).text)
 # WIKIFIER
 # Usage: wikifier_tag(text)
 wikifier_payload = lambda text: {
-    'text': text,
+    'text': text.encode('utf-8'),
     'lang': 'en',
     'userKey': WIKIFIER_KEY
 }
@@ -52,7 +52,7 @@ wikifier_tag = lambda text: json_foolproof_loads(wikifier_call(text).text)
 #  Therefore:
 #   stanford_tag(text, stanford_tagger())
 stanford_tagger = lambda: StanfordNERTagger('english.all.3class.distsim.crf.ser.gz')
-stanford_tag = lambda text, tagger: tagger.tag(text.split())
+stanford_tag = lambda text, tagger: tagger.tag(text.encode('utf-8').split())
 
 
 if __name__ == '__main__':
