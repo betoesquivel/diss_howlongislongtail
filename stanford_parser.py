@@ -14,9 +14,13 @@ def parse_stanford_doc(doc):
     type_counts = defaultdict(lambda: 0)
     
     document = {}
-    document['entities'] = defaultdict(lambda: {'counts': 0, 'mentions': []})
+    document[u'entities'] = defaultdict(lambda: {'counts': 0, 'mentions': []})
     document[u'tagged-words'] = {}
+    document[u'tokens'] = []
     for i, [w, t] in enumerate(doc):
+
+        document[u'tokens'].append(w)
+
         if starts_new_entity(previous_type, t):
             start_word = i
             end_word = i
@@ -62,15 +66,9 @@ if __name__ == '__main__':
     from pprint import PrettyPrinter
 
     stanford_file_name = './50_tagged_by_stanford.jsonl'
-    wikifier_file_name = './100_tagged_by_wikifier.jsonl'
-    tagme_file_name = './100_tagged_by_tagme_longtext_0_epsilon_dot1_includecategories_includeallspots.jsonl'
     
     stanford_docs = from_file_get_n_docs(stanford_file_name, 2)
-    wikifier_docs = from_file_get_n_docs(wikifier_file_name, 2)
-    tagme_docs = from_file_get_n_docs(tagme_file_name, 2)
-
     stanford_parsed_docs = [parse_stanford_doc(doc) for doc in stanford_docs]
-
 
     pp = PrettyPrinter()
     pp.pprint(stanford_parsed_docs[0])
