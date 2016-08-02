@@ -2,7 +2,6 @@
 from collections import defaultdict
 import json
 
-
 starts_new_entity = lambda prev, curr: prev != curr and curr != 'O'
 is_in_entity = lambda prev, curr: prev == curr and curr != 'O'
 is_outside_entity = lambda prev, curr: prev != curr and curr == 'O'
