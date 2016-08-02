@@ -3,31 +3,12 @@ import copy
 import json
 from collections import defaultdict
 
+from tagged_document_parsing_lib import type_mention, all_possible_mentions_for_surface_forms
+
 wikifier_mention_surface_form = lambda m, words: u' '.join(words[m['wFrom'] : m['wTo'] + 1])
 
 def wikifier_entity_surface_forms (e, words):
     return [wikifier_mention_surface_form(mention, words) for mention in e['support']]
-
-def type_mention(mention_type, mention):
-    mention[u'type'] = mention_type
-    return copy.deepcopy(mention)
-
-def generate_mentions_for_surface_form (surface_form):
-    mentions = []
-    mention = {u'surface_form': surface_form}
-    
-    types = [u'ORGANIZATION', u'LOCATION', u'PERSON']
-    
-    mentions.extend([type_mention(t, mention) for t in types ])
-
-    return mentions
-
-extend_reducer = lambda l1, l2: l1.extend(l2) if l1 else l2
-def all_possible_mentions_for_surface_forms(sfs):
-    mentions = []
-    map(mentions.extend, map(generate_mentions_for_surface_form, sfs))
-    
-    return mentions
 
 def annotation_important_information(a):
     important_info = [
