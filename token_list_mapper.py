@@ -2,21 +2,32 @@
 from similarity import similar, find_similar_to_a_in_dict_b, a_is_not_in_dict_b, compare_linkers_parsed_docs
 
 valid_index = lambda i, arr: i < len(arr)
+list_is_not_empty = lambda l: not not l
 
 def should_shift_list (arr, i, shifts, max_shifts, previous_similar):
     return valid_index(i+shifts, arr) and shifts <= max_shifts and not previous_similar
+
 
 def compare_a_to_b_shifting_max_from_indexes (a, b, max_shifts, a_i, b_i):
     
     next_shift = 0
     current_shift = 0
     are_similar = False
+    similar_terms = []
     while should_shift_list(a, a_i, next_shift, max_shifts, are_similar):
-        are_similar = similar(a[a_i + next_shift], b[b_i], 0.6)
+        similarity_value = similar(a[a_i + next_shift], b[b_i], None) 
+        if similarity_value >= 0.8:
+            similar_terms.append((similarity_value, next_shift))
+            are_similar = True
+        elif similarity_value >= 0.6:
+            similar_terms.append((similarity_value, next_shift))
+
         current_shift = next_shift
         next_shift += 1    
-    
-    current_shift = -1 if not are_similar else current_shift
+
+    are_similar = list_is_not_empty(similar_terms)
+
+    current_shift = -1 if not are_similar else max(similar_terms)[1]
     return current_shift
 
 def shift_indexes(a_i, b_i, a_shifts, b_shifts):
@@ -66,4 +77,7 @@ if __name__ == '__main__':
     a = [u'aaaa', u'a.', u'hola', u'..', u',', u'perro']
     b = [u"aaaa's", u'!!!', u'a', u'hola!!', u'perro']
      
+    print "Result: "
     print map_token_list_a_to_b(a, b)
+    print "Expected: "
+    print {0: 0, 1: 2, 2: 3, 5:4}
