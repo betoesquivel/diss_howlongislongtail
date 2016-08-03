@@ -13,10 +13,16 @@ def parse_tagme_doc(doc):
     for i, annotation in enumerate(doc['annotations']):
         all_possible_annotation_indexes = generate_mentions_for_surface_form(annotation['spot'])
 
+        tokens = annotation['spot'].split()
+        start = len(parsed_doc[u'tokens'])
+        end = start + len(tokens) - 1
+
+        annotation[u'start'] = start
+        annotation[u'end'] = end
+
         for index in all_possible_annotation_indexes:
             indexed_tagme_annotations[json.dumps(index, ensure_ascii=False)].append(annotation)
             
-        tokens = annotation['spot'].split()
         for tok in tokens:
             parsed_doc[u'tagged-words'][len(parsed_doc[u'tokens'])] = copy.deepcopy(annotation)
             parsed_doc[u'tokens'].append(tok)
