@@ -1,4 +1,4 @@
-#!/usr/bin/enb python
+#!/usr/bin/env python
 import json
 import itertools
 
@@ -10,6 +10,5 @@ if __name__ == '__main__':
     docs = from_file_get_n_docs('./50_tagged_by_stanford.jsonl', 10)
     print docs
     print "Read {0} samples.".format(len(docs))
-
 
 

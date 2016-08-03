@@ -7,6 +7,7 @@ list_is_not_empty = lambda l: not not l
 def should_shift_list (arr, i, shifts, max_shifts, previous_similar):
     return valid_index(i+shifts, arr) and shifts <= max_shifts and not previous_similar
 
+score_with_reciprocal = lambda i: 1.0/float(i + 1)
 
 def compare_a_to_b_shifting_max_from_indexes (a, b, max_shifts, a_i, b_i):
     
@@ -17,17 +18,17 @@ def compare_a_to_b_shifting_max_from_indexes (a, b, max_shifts, a_i, b_i):
     while should_shift_list(a, a_i, next_shift, max_shifts, are_similar):
         similarity_value = similar(a[a_i + next_shift], b[b_i], None) 
         if similarity_value >= 0.8:
-            similar_terms.append((similarity_value, next_shift))
+            similar_terms.append((similarity_value, score_with_reciprocal(next_shift), next_shift))
             are_similar = True
         elif similarity_value >= 0.6:
-            similar_terms.append((similarity_value, next_shift))
+            similar_terms.append((similarity_value, score_with_reciprocal(next_shift), next_shift))
 
         current_shift = next_shift
         next_shift += 1    
 
     are_similar = list_is_not_empty(similar_terms)
 
-    current_shift = -1 if not are_similar else max(similar_terms)[1]
+    current_shift = -1 if not are_similar else max(similar_terms)[2]
     return current_shift
 
 def shift_indexes(a_i, b_i, a_shifts, b_shifts):
