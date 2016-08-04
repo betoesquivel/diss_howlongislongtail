@@ -12,7 +12,7 @@ from json_extractor import from_file_get_n_docs
 FILENAMES = {
     'stanford': '100_tagged_by_stanford.jsonl',
     'wikifier': '100_tagged_by_wikifier.jsonl',
-    'tagme'   : '100_tagged_by_tagme_longtext_0_epsilon_dot1_includecategories_includeallspots.jsonl'
+    'tagme'   : '100_tagged_by_tagme_with_raw_longtext_0_epsilon_dot1_includecategories_includeallspots.jsonl'
 }
 
 PARSERS = {
