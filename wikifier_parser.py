@@ -19,12 +19,15 @@ def annotation_important_information(a):
         k: a.get(k, u'Not present') for k in important_info 
     }
 
-def add_annotation_to_tagged_words_dict(a, d):
+def add_annotation_to_tagged_words_dict(a, d, words):
     for mention in a['support']:
         start = mention['wFrom']
         end = mention['wTo']
         for i in range(start, end + 1):
             d[i] = annotation_important_information(a)
+            d[i]['start'] = start
+            d[i]['end'] = end
+            d[i]['wikifier-surface-form'] = wikifier_mention_surface_form(mention, words)
     return d
 
 def parse_wikifier_doc(doc):
@@ -43,7 +46,7 @@ def parse_wikifier_doc(doc):
                     u'types': types,
                     u'title': title
                 })
-            tagged_words = add_annotation_to_tagged_words_dict(a, tagged_words)
+            tagged_words = add_annotation_to_tagged_words_dict(a, tagged_words, doc['words'])
                 
     return {
         'entities': annotation_dictionary,
